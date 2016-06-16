@@ -3,10 +3,12 @@ This is a Galaga remix, you have a limited number of bullets to kill all the ene
 
 ![spaceshooter](https://cloud.githubusercontent.com/assets/19313175/16123953/78764788-33b2-11e6-9dbe-25c229c9b885.PNG)
 
-This game is in the early stages of development.  A menu system, enemies that shoot at the player, more levels and sound are a few that are in current development. 
+This game is in the early stages of development.  A menu system, enemies that shoot at the player, more levels and sound are a few that are in current development.
+
 
 #Setup
-There is a little bit of setting up to do before you are able to run the game.  You will need a local web server if you want to develop on your local machine. There is a great tutorial for this on the Phaser website. http://phaser.io/tutorials/getting-started
+JavaScript is located on the index.html page.
+There is a little bit of setting up to do before you are able to run the game.  You will need a local web server if you want to develop on your local machine. There is a great tutorial for this and more on the Phaser website. http://phaser.io/tutorials/getting-started
 
 ## Controls 
           Move: left and right arrow keys
