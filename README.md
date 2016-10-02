@@ -14,7 +14,7 @@ There is a little bit of setting up to do before you are able to run the game.  
           Move: left and right arrow keys
           Shoot: Spacebar
 ## Play 
-https://goo.gl/8X9UUv
+http://chrisgalluptest.info/galagaremix/index.html
 
 ## Credit
 I got my 2D game development start from a youtube channel.  His tutorials were the fundamental start of the game.  I expanded upon his game development work and added artwork that I created in Adobe Illustrator. 
