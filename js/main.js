@@ -96,14 +96,19 @@ function update() {
     }
 }
 function fireBullet() {
-    if(game.time.now > bulletTime) { 
-        bullet = bullets.getFirstExists(false); 
-        if(bullet) {
-            bullet.reset(player.x + 11, player.y);
-            bullet.body.velocity.y = -400;
-            bulletTime = game.time.now + 200;
-            bulletCount--;
-        }
+    if(bulletCount > 0) {
+        if(game.time.now > bulletTime) { 
+            bullet = bullets.getFirstExists(false); 
+            if(bullet) {
+                bullet.reset(player.x + 11, player.y);
+                bullet.body.velocity.y = -400;
+                bulletTime = game.time.now + 200;
+                bulletCount--;
+                }
+            }
+    } else {
+        lives--;
+        bulletCount = 75;
     }
 }
 // creates enemies according to the number
