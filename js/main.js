@@ -85,14 +85,9 @@ function update() {
         levels = levels + 1;  
         level();  
     }
-    // checks for a loss
-    if(bulletCount == 0 && !win) {
-        loseText.visible = true;
-    }
     // checks if player has any lives left
-    if(lives <= 0) {
-       loseText.visible = true;
-       game.paused = true;  
+    if(lives === 0 && bulletCount === 0) {
+       loseText.visible = true; 
     }
 }
 function fireBullet() {
@@ -107,8 +102,10 @@ function fireBullet() {
                 }
             }
     } else {
-        lives--;
-        bulletCount = 75;
+        if (lives > 0) {
+            lives--;
+            bulletCount = 75;
+        }
     }
 }
 // creates enemies according to the number
