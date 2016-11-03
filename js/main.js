@@ -142,7 +142,8 @@ function fireEnemyBullet() {
             enemyBulletTime = game.time.now + 500;
             game.physics.arcade.moveToObject(enemyBullet,player,600);
         }
-    }      
+    } 
+}
 // creates enemies according to the number
 // passed to the function.
 // number passed times 10 is the expected enemy count
