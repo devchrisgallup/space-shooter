@@ -17,6 +17,9 @@ var levels = 1;
 var bulletCount = 75;
 var shipCount = 0; 
 var enemies; 
+var enemyBullets; 
+var enemyBulletTime = 0; 
+var livingEnemies = [];
 function preload() {
     game.load.image("starfield","assets/starfield.png");
     game.load.image("starfieldlevel2", "assets/starfieldlevel2.png"); 
@@ -40,6 +43,15 @@ function create() {
     bullets.setAll('anchor.y', 1);
     bullets.setAll('outOfBoundsKill', true);
     bullets.setAll('checkWorldBounds', true);
+    // creates enemy bullets
+    enemyBullets = game.add.group();
+    enemyBullets.enableBody = true; 
+    enemyBullets.physicsBodyType = Phaser.Physics.ARCADE; 
+    enemyBullets.createMultiple(30, 'bullet');
+    enemyBullets.setAll('anchor.x', 0.5);
+    enemyBullets.setAll('anchor.y', 1);
+    enemyBullets.setAll('outOfBoundsKill', true);
+    enemyBullets.setAll('checkWorldBounds', true);
     // assign spacebar key to fireButton
     fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
     enemies = game.add.group(); 
@@ -61,6 +73,7 @@ function create() {
 function update() {
     game.physics.arcade.overlap(bullets,enemies,collisionHandler,null,this);
     game.physics.arcade.overlap(enemies,player,collisionHandlerPlayer,null,this);
+    game.physics.arcade.overlap(player,enemyBullets,collisionHandlerEnemyBulletAndPlayer,null,this);
     player.body.velocity.x = 0; 
     // scrolls the background
     spacefield.tilePosition.y += 2; 
@@ -86,9 +99,14 @@ function update() {
         level();  
     }
     // checks if player has any lives left
-    if(lives === 0 && bulletCount === 0) {
-       loseText.visible = true; 
+    if(lives === 0 || bulletCount === 0) {
+        loseText.visible = true;
+        player.kill();
+        setTimeout(function() {
+            player.kill();
+        }, 1990);
     }
+    fireEnemyBullet(); 
 }
 function fireBullet() {
     if(bulletCount > 0) {
@@ -108,6 +126,23 @@ function fireBullet() {
         }
     }
 }
+// fires enemy bullets
+function fireEnemyBullet() {
+    livingEnemies.length = 0; 
+    enemies.forEachAlive(function(enemy){
+        livingEnemies.push(enemy)
+    });
+
+    if(game.time.now > enemyBulletTime) { 
+        enemyBullet = enemyBullets.getFirstExists(false); 
+        if(enemyBullet && livingEnemies.length > 0) {
+            var random = game.rnd.integerInRange(0, livingEnemies.length - 1);
+            var shooter = livingEnemies[random];
+            enemyBullet.reset(shooter.body.x, shooter.body.y + 30);
+            enemyBulletTime = game.time.now + 500;
+            game.physics.arcade.moveToObject(enemyBullet,player,600);
+        }
+    }      
 // creates enemies according to the number
 // passed to the function.
 // number passed times 10 is the expected enemy count
@@ -142,6 +177,15 @@ function collisionHandlerPlayer(player,enemy) {
     score = 0; 
     if (lives > 0) {
         lives = lives - 1;
+    }
+}
+function collisionHandlerEnemyBulletAndPlayer(player, enemyBullet) {
+    if (lives > 0) {
+        lives = lives - 1;
+        player.kill();
+        setTimeout(function() {
+            player.reset(game.world.centerX, game.world.centerY + 200, false);
+        }, 2000);
     }
 }
 // recreates level if player has a win
