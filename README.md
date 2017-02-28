@@ -1,7 +1,6 @@
 # space-shooter
 This is a Galaga remix, you have a limited number of bullets to kill all the enemies.  This game was developed with the Phaser.io Framework. There are currently two levels.
 
-![spaceshooter](https://cloud.githubusercontent.com/assets/19313175/16123953/78764788-33b2-11e6-9dbe-25c229c9b885.PNG)
 
 This game is in the early stages of development.  A menu system, enemies that shoot at the player, more levels and sound are a few that are in current development.
 
